@@ -259,7 +259,7 @@ async function getapiurls(str: string): Promise<
 	if(str.at(-1) !== "/"){
 		str += "/";
 	}
-	let api: string;
+	let wellknown: string;
 	try{
 		const info = await fetch(`${str}.well-known/spacebar`).then(x=>x.json()
 		);
