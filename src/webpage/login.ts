@@ -258,7 +258,6 @@ async function checkInstance(instance?: string) {
     const instanceValue = instance || (instancein as HTMLInputElement).value;
     const instanceinfo = await getapiurls(instanceValue);
     if (instanceinfo) {
-      instanceinfo.value = instanceValue;
       localStorage.setItem("instanceinfo", JSON.stringify(instanceinfo));
       verify!.textContent = "Instance is all good";
       // @ts-ignore
