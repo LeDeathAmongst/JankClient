@@ -213,103 +213,70 @@ const stringURLsMap = new Map<
 	login?: string;
 	}
 	>();
-async function getapiurls(str: string): Promise<
-	| {
-	api: string;
-	cdn: string;
-	gateway: string;
-	wellknown: string;
-	login: string;
-	}
-	| false
-	>{
-	if(!URL.canParse(str)){
-		const val = stringURLMap.get(str);
-		if(val){
-			str = val;
-		}else{
-			const val = stringURLsMap.get(str);
-			if(val){
-				const responce = await fetch(
-					val.api + val.api.endsWith("/") ? "" : "/" + "ping"
-				);
-				if(responce.ok){
-					if(val.login){
-						return val as {
-	wellknown: string;
-	api: string;
-	cdn: string;
-	gateway: string;
-	login: string;
-	};
-					}else{
-						val.login = val.api;
-						return val as {
-	wellknown: string;
-	api: string;
-	cdn: string;
-	gateway: string;
-	login: string;
-	};
-					}
-				}
-			}
-		}
-	}
-	if(str.at(-1) !== "/"){
-		str += "/";
-	}
-	let wellknown: string;
-	try{
-		const info = await fetch(`${str}.well-known/spacebar`).then(x=>x.json()
-		);
-		api = info.api;
-	}catch{
-		return false;
-	}
-	const url = new URL(api);
-	try{
-		const info = await fetch(
-			`${api}${
-				url.pathname.includes("api") ? "" : "api"
-			}/policies/instance/domains`
-		).then(x=>x.json());
-		return{
-			api: info.apiEndpoint,
-			gateway: info.gateway,
-			cdn: info.cdn,
-			wellknown: str,
-			login: url.toString(),
-		};
-	}catch{
-		const val = stringURLsMap.get(str);
-		if(val){
-			const responce = await fetch(
-				val.api + val.api.endsWith("/") ? "" : "/" + "ping"
-			);
-			if(responce.ok){
-				if(val.login){
-					return val as {
-	wellknown: string;
-	api: string;
-	cdn: string;
-	gateway: string;
-	login: string;
-	};
-				}else{
-					val.login = val.api;
-					return val as {
-	wellknown: string;
-	api: string;
-	cdn: string;
-	gateway: string;
-	login: string;
-	};
-				}
-			}
-		}
-		return false;
-	}
+
+async function getapiurls(instanceName: string): Promise<{
+  api: string;
+  cdn: string;
+  gateway: string;
+  wellknown: string;
+  login: string;
+} | false> {
+  // Assuming instances is already populated with data from instances.json
+  const instance = instances?.find(inst => inst.name === instanceName);
+  if (!instance || !instance.urls.wellknown) {
+    return false;
+  }
+
+  let wellknownUrl = instance.urls.wellknown;
+  if (wellknownUrl.at(-1) !== "/") {
+    wellknownUrl += "/";
+  }
+
+  try {
+    const response = await fetch(`${wellknownUrl}.well-known/spacebar`);
+    if (!response.ok) {
+      return false;
+    }
+    const info = await response.json();
+    return {
+      api: info.apiEndpoint,
+      gateway: info.gateway,
+      cdn: info.cdn,
+      wellknown: wellknownUrl,
+      login: info.login || wellknownUrl
+    };
+  } catch {
+    return false;
+  }
+}
+
+// Usage within the larger codebase
+async function checkInstance(instance?: string) {
+  const verify = document.getElementById("verify");
+  try {
+    verify!.textContent = "Checking Instance";
+    const instanceValue = instance || (instancein as HTMLInputElement).value;
+    const instanceinfo = await getapiurls(instanceValue);
+    if (instanceinfo) {
+      instanceinfo.value = instanceValue;
+      localStorage.setItem("instanceinfo", JSON.stringify(instanceinfo));
+      verify!.textContent = "Instance is all good";
+      // @ts-ignore
+      if (checkInstance.alt) {
+        // @ts-ignore
+        checkInstance.alt();
+      }
+      setTimeout(() => {
+        console.log(verify!.textContent);
+        verify!.textContent = "";
+      }, 3000);
+    } else {
+      verify!.textContent = "Invalid Instance, try again";
+    }
+  } catch {
+    console.log("catch");
+    verify!.textContent = "Invalid Instance, try again";
+  }
 }
 async function checkInstance(instance?: string){
 	const verify = document.getElementById("verify");
