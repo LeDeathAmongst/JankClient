@@ -34,9 +34,9 @@
         "display": true,
         "urls": {
             "wellknown": "https://innova.prismbot.icu",
-            "api": "https://spacebar.prismbot.icu/api/v9",
-            "cdn": "https://spacebar.prismbot.icu",
-            "gateway": "wss://spacebar.prismbot.icu"
+            "api": "https://innova.prismbot.icu/api/v9",
+            "cdn": "https://innova.prismbot.icu",
+            "gateway": "wss://innova.prismbot.icu"
         },
         "contactInfo": {
             "dicord": "death_waffle",
