@@ -278,6 +278,26 @@ async function checkInstance(instance?: string) {
   }
 }
 
+if(instancein){
+	console.log(instancein);
+	instancein.addEventListener("keydown", _=>{
+		const verify = document.getElementById("verify");
+	verify!.textContent = "Waiting to check Instance";
+	clearTimeout(timeout);
+	timeout = setTimeout(()=>checkInstance(), 1000);
+	});
+	if(localStorage.getItem("instanceinfo")){
+		const json = JSON.parse(localStorage.getItem("instanceinfo")!);
+		if(json.value){
+			(instancein as HTMLInputElement).value = json.value;
+		}else{
+			(instancein as HTMLInputElement).value = json.wellknown;
+		}
+	}else{
+		checkInstance("https://spacebar.chat/");
+	}
+}
+
 async function login(username: string, password: string, captcha: string){
 	if(captcha === ""){
 		captcha = "";
