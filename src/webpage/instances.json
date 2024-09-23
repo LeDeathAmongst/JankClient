@@ -24,5 +24,23 @@
             "github": "https://github.com/greysilly7",
             "email": "greysilly7@gmail.com"
         }
+    },
+    {
+        "name": "Star Chat",
+        "description": "The official Star Chat instance <3",
+        "url": "https://spacebar.prismbot.icu",
+        "language": "en",
+        "country": "US",
+        "display": true,
+        "urls": {
+            "wellknown": "https://spacebar.prismbot.icu",
+            "api": "https://spacebar.prismbot.icu/api/v9",
+            "cdn": "https://spacebar.prismbot.icu",
+            "gateway": "wss://spacebar.prismbot.icu"
+        },
+        "contactInfo": {
+            "dicord": "death_waffle",
+            "github": "https://github.com/LeDeathAmongst"
+        }
     }
 ]
