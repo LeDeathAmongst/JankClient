@@ -209,7 +209,7 @@ function adduser(user: typeof Specialuser.prototype.json) {
 }
 
 const instancein = document.getElementById("instancein") as HTMLInputElement;
-let timeout: number | undefined;
+let timeout: string | number | NodeJS.Timeout | undefined;
 const stringURLMap = new Map<string, string>();
 const stringURLsMap = new Map<
   string,
