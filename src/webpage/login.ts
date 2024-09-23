@@ -278,60 +278,6 @@ async function checkInstance(instance?: string) {
     verify!.textContent = "Invalid Instance, try again";
   }
 }
-async function checkInstance(instance?: string){
-	const verify = document.getElementById("verify");
-	try{
-	verify!.textContent = "Checking Instance";
-	const instanceValue = instance || (instancein as HTMLInputElement).value;
-	const instanceinfo = (await getapiurls(instanceValue)) as {
-	wellknown: string;
-	api: string;
-	cdn: string;
-	gateway: string;
-	login: string;
-	value: string;
-	};
-	if(instanceinfo){
-		instanceinfo.value = instanceValue;
-		localStorage.setItem("instanceinfo", JSON.stringify(instanceinfo));
-	verify!.textContent = "Instance is all good";
-	// @ts-ignore
-	if(checkInstance.alt){
-	// @ts-ignore
-		checkInstance.alt();
-	}
-	setTimeout((_: any)=>{
-		console.log(verify!.textContent);
-	verify!.textContent = "";
-	}, 3000);
-	}else{
-	verify!.textContent = "Invalid Instance, try again";
-	}
-	}catch{
-		console.log("catch");
-	verify!.textContent = "Invalid Instance, try again";
-	}
-}
-
-if(instancein){
-	console.log(instancein);
-	instancein.addEventListener("keydown", _=>{
-		const verify = document.getElementById("verify");
-	verify!.textContent = "Waiting to check Instance";
-	clearTimeout(timeout);
-	timeout = setTimeout(()=>checkInstance(), 1000);
-	});
-	if(localStorage.getItem("instanceinfo")){
-		const json = JSON.parse(localStorage.getItem("instanceinfo")!);
-		if(json.value){
-			(instancein as HTMLInputElement).value = json.value;
-		}else{
-			(instancein as HTMLInputElement).value = json.wellknown;
-		}
-	}else{
-		checkInstance("https://spacebar.chat/");
-	}
-}
 
 async function login(username: string, password: string, captcha: string){
 	if(captcha === ""){
