@@ -34,7 +34,7 @@
         "display": true,
         "urls": {
             "wellknown": "https://innova.prismbot.icu",
-            "api": "https://innova.prismbot.icu/api/v9",
+            "api": "https://spacebar.prismbot.icu/api/v9",
             "cdn": "https://innova.prismbot.icu",
             "gateway": "wss://innova.prismbot.icu"
         },
