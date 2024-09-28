@@ -30,5 +30,23 @@
             "github": "https://github.com/greysilly7",
             "email": "greysilly7@gmail.com"
         }
+    },
+    {
+        "name": "Star Chat",
+        "description": "A super fast Spacebar Instance owned and ran by Star",
+        "image": "https://images-ext-1.discordapp.net/external/HjdBUZx-jUdb2msmxkfLydyOBkQ9p_qpm-RAIvfxce4/%3Fsize%3D1024/https/cdn.discordapp.com/avatars/1275521742961508432/f560dae4c44492b352e428880ab5279b.png?format=webp&quality=lossless&width=447&height=447",
+        "language": "en",
+        "country": "US",
+        "display": true,
+        "urls": {
+            "api": "https://spacebar.prismbot.icu/api/v9",
+            "cdn": "https://spacebar.prismbot.icu",
+            "gateway": "wss://spacebar.prismbot.icu"
+        },
+        "contactInfo": {
+            "dicord": "death_waffle",
+            "github": "https://github.com/LeDeathAmongst",
+            "email": "skylar.rae.val2001@gmail.com"
+        }
     }
 ]
